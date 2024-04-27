@@ -1,10 +1,11 @@
 
 import streamlit as st
-#from streamlit_extras.let_it_rain import rain
-from streamlit_option_menu import option_menu
-from streamlit_image_select import image_select
 from typing import Union
+from streamlit_extras.stylable_container import stylable_container
+from st_clickable_images import clickable_images
+import webbrowser
 import base64
+
 
 #82fff5
 st.set_page_config(page_title="BakerHouse Ü",
@@ -13,9 +14,9 @@ st.set_page_config(page_title="BakerHouse Ü",
                    )
 
 with open('./olas.css') as f:
-    css = f.read()
+    css_bg = f.read()
 
-st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+st.markdown(f'<style>{css_bg}</style>', unsafe_allow_html=True)
 
 
 
@@ -231,73 +232,121 @@ def lluvia_donitas():
     )
 
 
-def pag_inicio():
-    inicio=st.container()
+   
+   
+    colb1, colb2, colb3 =st.columns([1,1,1])
     
-    col1,col2,col3=st.columns([1,1,1])
+    with colb2:
+            with stylable_container(
+        key="bnt_nuevo",
+        css_styles="""
+            button {
+                background-image: linear-gradient(to right, #C9FFBF 0%, #FFAFBD  51%, #C9FFBF  100%);
+                margin: 10px;
+                padding: 5px 10px;
+                text-align: center;
+                text-transform: uppercase;
+                transition: 0.5s;
+                background-size: 200% auto;
+                color: black;            
+                box-shadow: 0 0 10px #eee;
+                border-radius: 5px;
+                display: block;
+            }
+            
+            button:hover {
+                background-position: right center; /* change the direction of the change here */
+                color: #fff;
+                text-decoration: none;
+            }   
+            """,
+    ):
+                
+                def link_btn_():
+                    webbrowser.open_new("https://wa.me/527531678466")
+                
+                st.button("Pide tus donitas 😋", on_click=link_btn_)
+     
+       
+    st.title("  Baker House Ü", anchor=False,)
+    st.subheader("  Te mereces unas donitas", anchor=False)
     
-    with col2:
-        st.title("  Baker House Ü", anchor=False,)
-        st.subheader("  Te mereces unas donitas", anchor=False)
-        st.video("bk_2.mp4", format="video/mp4", start_time=0, subtitles=None, end_time=None, loop=True)
-        st.link_button("Pide tus donitas 😋", "https://wa.me/527531678466")
-    
-    
-    
-    
-    
-    
-def pag_donitas():
-    donitas=st.container()
-    
-    donitas.subheader("Dinámica de compra", anchor=False)
-    donitas.divider()
-    donitas.markdown("**Selecciona el tamaño de tu cajita 📦**")
-    donitas.text("• 4 minidonitas \n• 9 minidonitas \n• 24 minidonitas\n\n\n\n\n\n")
-    donitas.markdown("**Dinos el tipo de decoración y extras que te gustarían✨**")
-    donitas.text("Puedes enviarnos fotos de referencia, también podemos agregar algunos extras \ncomo chispas, figuras, letras, etc.\n\n\n\n\n\n")
-    donitas.markdown("**Métodos de entrega**🚚")
-    donitas.text("Entregamos en el OXXO de la clínica Fátima o por mandadito con cargo al cliente\n\n\n\n\n\n")
-    donitas.markdown("**❗IMPORTANTE pedir tus donitas con 3 días de anticipación❗💟**")
-    donitas.markdown("**CONFIRMA TU PEDIDO CON EL 50% DE ANTICIPO✔️**")
-    donitas.link_button("Pide tus donitas 😋", "https://wa.me/527531678466")
-    
+    images = []
+    for file in ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg"]:
+        with open(file, "rb") as image:
+            encoded = base64.b64encode(image.read()).decode()
+            images.append(f"data:image/jpeg;base64,{encoded}")
 
-def pag_contacto():
-    contacto=st.container()
-    contacto.subheader("Contactanos por nuestras redes c:", anchor=False)
-    contacto.link_button("visita nuestro instagram", "https://www.instagram.com/bakerhouselzc/")
-    contacto.link_button("Pide tus donitas 😋", "https://wa.me/527531678466")
-    img = image_select(
-    label="Mira, ¡Donitas!",
-    images=[
-        "1.jpg",
-        "2.jpg",
-    ],
-    captions=["Cliente agradecido", "Otro cliente c:"],
-)
-    st.image(img, width=500)
-    
-
-        
-    
-
-
-
-selected = option_menu(
-    menu_title=None,
-    options=["Inicio🏠", "Como comprar🍩", "Contacto📱"],
-    icons=["dot", "dot", "dot"],
-    menu_icon=["menu-button-wide-fill"],
-    orientation="horizontal"
+    clicked = clickable_images(
+        images,
+        titles=[f"Image #{str(i)}" for i in range(len(images))],
+        div_style={"display": "flex", "justify-content": "center", "flex-wrap": "wrap"},
+        img_style={"margin": "1px", "height": "210px"},
     )
 
-if selected == "Inicio🏠":
-    pag_inicio()
-if selected == "Como comprar🍩":
-    pag_donitas()
-if selected == "Contacto📱":
-    pag_contacto()
+    st.markdown(f"Image #{clicked} clicked" if clicked > -1 else "No image clicked")
+    
+    
+    
+    
+    st.subheader("Dinámica de compra 👇", anchor=False)
+    exp1=st.expander("VER DINÁMICA")
+    
+    exp1.markdown("**Selecciona el tamaño de tu cajita 📦**")
+    exp1.text("• 4 minidonitas \n• 9 minidonitas \n• 24 minidonitas\n\n\n\n\n\n")
+    exp1.markdown("**Dinos el tipo de decoración y extras que te gustarían✨**")
+    exp1.text("Puedes enviarnos fotos de referencia, también podemos agregar algunos extras \ncomo chispas, figuras, letras, etc.\n\n\n\n\n\n")
+    exp1.markdown("**Métodos de entrega**🚚")
+    exp1.text("Entregamos en el OXXO de la clínica Fátima o por mandadito con cargo al cliente\n\n\n\n\n\n")
+    exp1.markdown("**❗IMPORTANTE pedir tus donitas con 3 días de anticipación❗💟**")
+    exp1.markdown("**CONFIRMA TU PEDIDO CON EL 50% DE ANTICIPO✔️**")
+    
+    colb1, colb2, colb3 =st.columns([1,1,1])
+    with colb2:
+        with stylable_container(
+            key="bnt_nuevo2",
+            css_styles="""
+                button {
+                    background-image: linear-gradient(to right, #C9FFBF 0%, #FFAFBD  51%, #C9FFBF  100%);
+                    margin: 10px;
+                    padding: 5px 10px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    transition: 0.5s;
+                    background-size: 200% auto;
+                    color: black;            
+                    box-shadow: 0 0 10px #eee;
+                    border-radius: 5px;
+                    display: block;
+                }
+                
+                button:hover {
+                    background-position: right center; /* change the direction of the change here */
+                    color: #fff;
+                    text-decoration: none;
+                }   
+                """,
+        ):
+                    
+                    def link_btn_():
+                        webbrowser.open_new("https://wa.me/527531678466")
+                    
+                    st.button("Pide tus donitas 😋", on_click=link_btn_, key="bnt_nuevo2")
+
+        
+        
+
+    
+
+    
+    
+    
+    
+    
+
+
+
+
 
 lluvia_donitas()
 
