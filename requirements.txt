@@ -1,4 +1,5 @@
 streamlit
 typing
 streamlit_extras
+st-clickable-images
 
