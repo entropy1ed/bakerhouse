@@ -3,4 +3,4 @@ typing
 streamlit_extras
 st-clickable-images
 streamlit-image-select
-
+webbrowser
