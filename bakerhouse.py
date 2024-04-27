@@ -292,12 +292,15 @@ def lluvia_donitas():
     st.subheader("Dinámica de compra 👇", anchor=False)
     exp1=st.expander("VER DINÁMICA")
     
-    exp1.markdown("**Selecciona el tamaño de tu cajita 📦**")
-    exp1.text("• 4 minidonitas \n• 9 minidonitas \n• 24 minidonitas\n\n\n\n\n\n")
-    exp1.markdown("**Dinos el tipo de decoración y extras que te gustarían✨**")
-    exp1.text("Puedes enviarnos fotos de referencia, también podemos agregar algunos extras \ncomo chispas, figuras, letras, etc.\n\n\n\n\n\n")
+    exp1.write("**Selecciona el tamaño de tu cajita 📦**")
+    exp1.write("""• 4 minidonitas 
+               \n• 9 minidonitas 
+               \n• 24 minidonitas\n\n\n\n\n\n""")
+    exp1.write("**Dinos el tipo de decoración y extras que te gustarían✨**")
+
+    exp1.write("Puedes enviarnos fotos de referencia, también podemos agregar algunos extras \ncomo chispas, figuras, letras, etc.\n\n\n\n\n\n")
     exp1.markdown("**Métodos de entrega**🚚")
-    exp1.text("Entregamos en el OXXO de la clínica Fátima o por mandadito con cargo al cliente\n\n\n\n\n\n")
+    exp1.write("Entregamos en el OXXO de la clínica Fátima o por mandadito con cargo al cliente\n\n\n\n\n\n")
     exp1.markdown("**❗IMPORTANTE pedir tus donitas con 3 días de anticipación❗💟**")
     exp1.markdown("**CONFIRMA TU PEDIDO CON EL 50% DE ANTICIPO✔️**")
     
