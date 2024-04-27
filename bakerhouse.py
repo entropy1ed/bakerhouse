@@ -4,19 +4,24 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from streamlit_image_select import image_select
 from typing import Union
+import base64
 
-
+#82fff5
 st.set_page_config(page_title="BakerHouse Ü",
                    page_icon=":doughnut:",
                    layout="centered"
                    )
 
+with open('./olas.css') as f:
+    css = f.read()
+
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
 
 def rain(
     emoji: str,
-    font_size: int = 64,
+    font_size: int = 12,
     falling_speed: int = 5,
     animation_length: Union[int, str] = "infinite",
 ):
@@ -229,7 +234,7 @@ def lluvia_donitas():
 def pag_inicio():
     inicio=st.container()
     
-    col1,col2,col3=st.columns([1,2,1])
+    col1,col2,col3=st.columns([1,1,1])
     
     with col2:
         st.title("  Baker House Ü", anchor=False,)
@@ -279,12 +284,12 @@ def pag_contacto():
 
 
 
-with st.sidebar:
-    selected = option_menu(
-        menu_title=None,
-        options=["Inicio🏠", "Como comprar🍩", "Contacto📱"],
-        icons=["dot", "dot", "dot"],
-        menu_icon=["menu-button-wide-fill"]
+selected = option_menu(
+    menu_title=None,
+    options=["Inicio🏠", "Como comprar🍩", "Contacto📱"],
+    icons=["dot", "dot", "dot"],
+    menu_icon=["menu-button-wide-fill"],
+    orientation="horizontal"
     )
 
 if selected == "Inicio🏠":
