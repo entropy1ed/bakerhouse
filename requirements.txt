@@ -1,4 +1,5 @@
 streamlit
-streamlit_option_menu
-streamlit_image_select
-
+typing
+streamlit_extras
+webbrowser
+base64
